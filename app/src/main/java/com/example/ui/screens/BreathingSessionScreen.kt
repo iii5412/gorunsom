@@ -91,7 +91,7 @@ fun BreathingSessionScreen(
         label = "phaseColor"
     )
     val phaseTitle = if (phase == BreathingPhase.INHALE) "들이쉬기" else "내쉬기"
-    val phaseHelper = if (phase == BreathingPhase.INHALE) "가볍게, 편안하게" else "천천히, 조금 더 길게"
+    val phaseHelper = if (phase == BreathingPhase.INHALE) "코로 부드럽게" else "입으로 편안히 길게"
     val phaseScale = 0.70f + (0.30f * expansion)
 
     Surface(modifier = modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
@@ -245,7 +245,7 @@ fun BreathingSessionScreen(
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = "숨을 억지로 크게 쉬지 않아도 괜찮아요.",
+                    text = "불편하거나 어지러우면 멈추고 자연스럽게 호흡하세요.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center

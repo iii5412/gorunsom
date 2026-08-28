@@ -20,9 +20,9 @@ data class EngineSnapshot(
 )
 
 enum class VoiceCue(val text: String) {
-    INHALE_LIGHT("가볍게 들이쉬세요."),
-    EXHALE_SLOW("천천히 내쉬세요."),
-    REASSURANCE("크게 들이마시려고 애쓰지 않으셔도 됩니다.")
+    INHALE_LIGHT("코로 부드럽게 들이쉬세요."),
+    EXHALE_SLOW("입으로 편안히 길게 내쉬세요."),
+    REASSURANCE("억지로 깊게 쉬지 않아도 괜찮아요.")
 }
 
 class SessionTimerEngine {
@@ -66,13 +66,13 @@ class SessionTimerEngine {
         val phaseJustStarted = (previousElapsedMs < 0) || (prevPhase != phase) || (previousElapsedMs / BreathingConstants.CYCLE_DURATION_MS != boundedElapsed / BreathingConstants.CYCLE_DURATION_MS)
 
         // Voice cue determination based on PRD:
-        // Cycles 1, 6, 11, 16 (0-indexed: 0, 5, 10, 15): Inhale -> "가볍게 들이쉬세요.", Exhale -> "천천히 내쉬세요."
-        // Cycle 10 (0-indexed: 9): Inhale -> "크게 들이마시려고 애쓰지 않으셔도 됩니다." (instead of standard inhale)
+        // Cycles 1, 4, 7, 10 (0-indexed: 0, 3, 6, 9): regular inhale/exhale guidance.
+        // Cycle 6 (0-indexed: 5): reassurance instead of the standard inhale cue.
         var voiceCue: VoiceCue? = null
         if (phaseJustStarted) {
-            if (cycleIndex in listOf(0, 5, 10, 15)) {
+            if (cycleIndex in listOf(0, 3, 6, 9)) {
                 voiceCue = if (phase == BreathingPhase.INHALE) VoiceCue.INHALE_LIGHT else VoiceCue.EXHALE_SLOW
-            } else if (cycleIndex == 9 && phase == BreathingPhase.INHALE) {
+            } else if (cycleIndex == 5 && phase == BreathingPhase.INHALE) {
                 voiceCue = VoiceCue.REASSURANCE
             }
         }

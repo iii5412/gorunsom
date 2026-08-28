@@ -106,7 +106,7 @@ fun SessionCompletedScreen(
                         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.75f)
                     ) {
                         Text(
-                            text = "20번의 고른 호흡  ·  2분",
+                            text = "12번의 고른 호흡  ·  2분",
                             style = MaterialTheme.typography.labelLarge,
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.padding(horizontal = 18.dp, vertical = 10.dp)

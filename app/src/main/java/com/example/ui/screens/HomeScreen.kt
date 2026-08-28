@@ -117,7 +117,7 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(30.dp))
 
                     Text(
-                        text = "지금, 숨을 고르게",
+                        text = "명상 전, 숨을 고르게",
                         style = MaterialTheme.typography.headlineLarge,
                         fontWeight = FontWeight.SemiBold,
                         textAlign = TextAlign.Center,
@@ -127,7 +127,7 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "크게 들이마시려고 애쓰지 않아도 괜찮아요.\n2분 동안 편안한 리듬을 함께 따라가요.",
+                        text = "편안한 만큼만 부드럽게 따라오세요.\n2분 동안 몸과 마음을 준비해요.",
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center
@@ -141,7 +141,7 @@ fun HomeScreen(
                     ) {
                         PhaseColorKey(
                             title = "들이쉬기",
-                            duration = "2초",
+                            duration = "4초",
                             icon = Icons.Default.ArrowUpward,
                             color = GoreunsumInhale,
                             containerColor = GoreunsumInhaleContainer,
@@ -149,7 +149,7 @@ fun HomeScreen(
                         )
                         PhaseColorKey(
                             title = "내쉬기",
-                            duration = "4초",
+                            duration = "6초",
                             icon = Icons.Default.ArrowDownward,
                             color = GoreunsumExhale,
                             containerColor = GoreunsumExhaleContainer,

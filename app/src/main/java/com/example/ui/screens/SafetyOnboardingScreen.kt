@@ -95,7 +95,7 @@ fun SafetyOnboardingScreen(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        text = "고른숨이 할 수 있는 일과, 앱보다 즉시 도움을 먼저 요청해야 하는 순간을 알려드릴게요.",
+                        text = "고른숨의 웰니스 목적과, 앱보다 즉시 도움을 먼저 요청해야 하는 순간을 알려드릴게요.",
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -107,7 +107,7 @@ fun SafetyOnboardingScreen(
                             IconLabel(icon = Icons.Default.HealthAndSafety, text = "웰니스 호흡 가이드")
                             Spacer(modifier = Modifier.height(14.dp))
                             Text(
-                                text = "고른숨은 편안한 호흡 리듬을 따라가도록 돕는 웰니스 앱이며 의료기기가 아닙니다. 질환이나 건강 상태를 진단·치료·치유·예방하지 않으며 의료인의 진료나 의학적 조언을 대신하지 않습니다.",
+                                text = "고른숨은 만 18세 이상 성인의 명상 전 준비와 일상적 긴장 완화를 위한 웰니스 앱이며 의료기기가 아닙니다. 질환이나 건강 상태를 진단·치료·치유·예방하지 않으며 의료인의 진료나 의학적 조언을 대신하지 않습니다.",
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )

@@ -1,6 +1,6 @@
 {
   "name": "고른숨",
-  "description": "가쁜 숨을, 고른 숨으로. 편안하고 규칙적인 호흡 리듬을 따라가도록 돕는 웰니스 앱",
+  "description": "마음을 고르고, 숨을 고르게. 명상 전 준비와 일상적 긴장 완화를 돕는 웰니스 앱",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

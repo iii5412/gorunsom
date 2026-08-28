@@ -100,7 +100,7 @@ fun GoreunsumWordmark(
             )
             if (!compact) {
                 Text(
-                    text = "가쁜 숨을, 고른 숨으로.",
+                    text = "마음을 고르고, 숨을 고르게.",
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

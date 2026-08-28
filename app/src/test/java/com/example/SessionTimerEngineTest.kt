@@ -30,22 +30,22 @@ class SessionTimerEngineTest {
     }
 
     @Test
-    fun `test inhale phase progress at 1000ms`() {
-        val snapshot = engine.calculate(1000L, 980L)
+    fun `test inhale phase progress at 2000ms`() {
+        val snapshot = engine.calculate(2000L, 1980L)
         assertEquals(BreathingPhase.INHALE, snapshot.phase)
         assertEquals(0, snapshot.cycleIndex)
-        assertEquals(1000L, snapshot.cycleElapsedMs)
+        assertEquals(2000L, snapshot.cycleElapsedMs)
         assertEquals(0.5f, snapshot.phaseProgress, 0.01f)
         assertEquals(0.5f, snapshot.circleExpansion, 0.01f)
         assertFalse(snapshot.isCompleted)
     }
 
     @Test
-    fun `test transition to exhale at 2000ms`() {
-        val snapshot = engine.calculate(2000L, 1980L)
+    fun `test transition to exhale at 4000ms`() {
+        val snapshot = engine.calculate(4000L, 3980L)
         assertEquals(BreathingPhase.EXHALE, snapshot.phase)
         assertEquals(0, snapshot.cycleIndex)
-        assertEquals(2000L, snapshot.cycleElapsedMs)
+        assertEquals(4000L, snapshot.cycleElapsedMs)
         assertEquals(0L, snapshot.phaseElapsedMs)
         assertEquals(BreathingConstants.EXHALE_DURATION_MS, snapshot.phaseDurationMs)
         assertTrue(snapshot.phaseJustStarted)
@@ -54,34 +54,34 @@ class SessionTimerEngineTest {
     }
 
     @Test
-    fun `test exhale progress at 4000ms`() {
-        val snapshot = engine.calculate(4000L, 3980L)
+    fun `test exhale progress at 7000ms`() {
+        val snapshot = engine.calculate(7000L, 6980L)
         assertEquals(BreathingPhase.EXHALE, snapshot.phase)
         assertEquals(0, snapshot.cycleIndex)
-        assertEquals(4000L, snapshot.cycleElapsedMs)
-        assertEquals(2000L, snapshot.phaseElapsedMs)
-        // 2000ms out of 4000ms exhale = 50%
+        assertEquals(7000L, snapshot.cycleElapsedMs)
+        assertEquals(3000L, snapshot.phaseElapsedMs)
+        // 3000ms out of 6000ms exhale = 50%
         assertEquals(0.5f, snapshot.phaseProgress, 0.01f)
         assertEquals(0.5f, snapshot.circleExpansion, 0.01f)
     }
 
     @Test
-    fun `test second cycle starts at 6000ms`() {
-        val snapshot = engine.calculate(6000L, 5980L)
+    fun `test second cycle starts at 10000ms`() {
+        val snapshot = engine.calculate(10000L, 9980L)
         assertEquals(BreathingPhase.INHALE, snapshot.phase)
         assertEquals(1, snapshot.cycleIndex)
         assertEquals(0L, snapshot.cycleElapsedMs)
         assertTrue(snapshot.phaseJustStarted)
         // Cycle 2 (index 1) does not have voice cue
         assertNull(snapshot.voiceCue)
-        assertEquals("01:54", snapshot.remainingTimeFormatted)
+        assertEquals("01:50", snapshot.remainingTimeFormatted)
     }
 
     @Test
-    fun `test 10th cycle (index 9) special reassurance voice cue`() {
-        val elapsed = 9 * BreathingConstants.CYCLE_DURATION_MS // 54000ms
+    fun `test 6th cycle (index 5) special reassurance voice cue`() {
+        val elapsed = 5 * BreathingConstants.CYCLE_DURATION_MS // 50000ms
         val snapshot = engine.calculate(elapsed, elapsed - 20)
-        assertEquals(9, snapshot.cycleIndex)
+        assertEquals(5, snapshot.cycleIndex)
         assertEquals(BreathingPhase.INHALE, snapshot.phase)
         assertTrue(snapshot.phaseJustStarted)
         assertEquals(VoiceCue.REASSURANCE, snapshot.voiceCue)
@@ -96,9 +96,9 @@ class SessionTimerEngineTest {
     }
 
     @Test
-    fun `test total cycles count exactly 20`() {
+    fun `test total cycles count exactly 12`() {
         val totalMs = BreathingConstants.SESSION_DURATION_MS
         val totalCycles = totalMs / BreathingConstants.CYCLE_DURATION_MS
-        assertEquals(20L, totalCycles)
+        assertEquals(12L, totalCycles)
     }
 }

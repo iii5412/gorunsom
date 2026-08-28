@@ -110,7 +110,7 @@ fun AppInfoScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "가쁜 숨을, 고른 숨으로.",
+                    text = "마음을 고르고, 숨을 고르게.",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Medium
@@ -124,7 +124,7 @@ fun AppInfoScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "고른숨은 의료기기가 아니며 질환의 진단·치료·치유·예방 기능을 제공하지 않습니다.",
+                        text = "고른숨은 만 18세 이상 성인의 명상 전 준비와 일상적 긴장 완화를 위한 웰니스 앱입니다. 의료기기가 아니며 질환의 진단·치료·치유·예방 기능을 제공하지 않습니다.",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface,
                         textAlign = TextAlign.Center,
