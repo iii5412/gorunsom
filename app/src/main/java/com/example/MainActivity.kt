@@ -186,7 +186,8 @@ fun AppNavigation(
                     selectedScore = uiState.comfortBeforeSelected,
                     onScoreSelected = { score -> viewModel.onComfortBeforeSelected(score) },
                     onSubmit = { score -> viewModel.onStartSession(score) },
-                    onSkip = { viewModel.onStartSession(null) }
+                    onSkip = { viewModel.onStartSession(null) },
+                    onBack = { viewModel.navigateBack() }
                 )
             }
             ScreenDestination.BREATHING_SESSION -> {
@@ -203,7 +204,8 @@ fun AppNavigation(
                     selectedScore = uiState.comfortAfterSelected,
                     onScoreSelected = { score -> viewModel.onComfortAfterSelected(score) },
                     onSubmit = { score -> viewModel.onComfortAfterSubmitted(score) },
-                    onSkip = { viewModel.onComfortAfterSubmitted(null) }
+                    onSkip = { viewModel.onComfortAfterSubmitted(null) },
+                    onBack = { viewModel.navigateBack() }
                 )
             }
             ScreenDestination.SESSION_COMPLETED -> {

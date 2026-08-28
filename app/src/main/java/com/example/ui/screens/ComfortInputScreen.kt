@@ -1,23 +1,23 @@
 package com.example.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
@@ -34,9 +34,13 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.domain.model.BreathingConstants
+import com.example.ui.components.GoreunsumTopBar
+import com.example.ui.components.PrimaryActionButton
+import com.example.ui.components.TonalPanel
+import com.example.ui.theme.GoreunsumOutlineSoft
 import com.example.ui.theme.GoreunsumPrimary
+import com.example.ui.theme.GoreunsumPrimaryContainer
 import com.example.ui.theme.GoreunsumSurfaceVariant
 
 @Composable
@@ -47,153 +51,177 @@ fun ComfortInputScreen(
     onScoreSelected: (Int) -> Unit,
     onSubmit: (Int?) -> Unit,
     onSkip: () -> Unit,
+    onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        modifier = modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
-        Box(
+    Surface(modifier = modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+        BoxWithConstraints(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.TopCenter
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .widthIn(max = 600.dp)
+                    .fillMaxWidth()
+                    .widthIn(max = 560.dp)
+                    .heightIn(min = maxHeight)
+                    .verticalScroll(rememberScrollState())
                     .padding(horizontal = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.height(48.dp))
+                GoreunsumTopBar(
+                    title = "편안함 기록",
+                    onBack = onBack,
+                    backTestTag = "comfort_back_button"
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
 
                 Text(
                     text = title,
                     style = MaterialTheme.typography.headlineLarge,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onBackground
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "내 느낌을 위한 선택 기록이에요. 건너뛰어도 됩니다.",
+                    text = "내 느낌을 위한 선택 기록이에요.\n건너뛰어도 괜찮아요.",
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center
                 )
 
-                Spacer(modifier = Modifier.weight(0.8f))
+                Spacer(modifier = Modifier.height(34.dp))
 
-                // Big Score Display
                 Box(
                     modifier = Modifier
-                        .size(120.dp)
+                        .size(126.dp)
                         .clip(CircleShape)
-                        .background(if (selectedScore != null) GoreunsumPrimary else GoreunsumSurfaceVariant),
+                        .background(if (selectedScore != null) GoreunsumPrimaryContainer else GoreunsumSurfaceVariant)
+                        .border(
+                            width = 1.dp,
+                            color = if (selectedScore != null) GoreunsumPrimary.copy(alpha = 0.28f) else GoreunsumOutlineSoft,
+                            shape = CircleShape
+                        ),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = selectedScore?.toString() ?: "-",
-                        style = MaterialTheme.typography.displayMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = if (selectedScore != null) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = selectedScore?.toString() ?: "—",
+                            style = MaterialTheme.typography.displayMedium,
+                            fontWeight = FontWeight.SemiBold,
+                            color = if (selectedScore != null) GoreunsumPrimary else MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = if (selectedScore == null) "미선택" else "10점 중",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(28.dp))
 
-                // 0..10 Slider Area
-                Card(
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column(
-                        modifier = Modifier.padding(20.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
+                TonalPanel {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = if (selectedScore == null) "손잡이를 움직여 선택해 주세요" else comfortLabel(selectedScore),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Medium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            textAlign = TextAlign.Center
+                        )
+
+                        Spacer(modifier = Modifier.height(18.dp))
+
                         Slider(
                             value = (selectedScore ?: 5).toFloat(),
-                            onValueChange = { newValue ->
-                                onScoreSelected(newValue.toInt().coerceIn(BreathingConstants.COMFORT_MIN, BreathingConstants.COMFORT_MAX))
+                            onValueChange = { value ->
+                                onScoreSelected(
+                                    value.toInt().coerceIn(
+                                        BreathingConstants.COMFORT_MIN,
+                                        BreathingConstants.COMFORT_MAX
+                                    )
+                                )
                             },
                             valueRange = 0f..10f,
                             steps = 9,
                             colors = SliderDefaults.colors(
-                                thumbColor = GoreunsumPrimary,
-                                activeTrackColor = GoreunsumPrimary,
+                                thumbColor = if (selectedScore != null) GoreunsumPrimary else MaterialTheme.colorScheme.outline,
+                                activeTrackColor = if (selectedScore != null) GoreunsumPrimary else MaterialTheme.colorScheme.outline,
                                 inactiveTrackColor = GoreunsumSurfaceVariant
                             ),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .testTag("comfort_slider")
                                 .semantics {
-                                    contentDescription = "편안함 점수 슬라이더. 0은 전혀 편안하지 않음, 10은 매우 편안함. 현재 선택: ${selectedScore ?: "미선택"}"
+                                    contentDescription = "편안함 점수. 0은 전혀 편안하지 않음, 10은 매우 편안함. 현재 ${selectedScore ?: "미선택"}"
                                 }
                         )
-
-                        Spacer(modifier = Modifier.height(8.dp))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(
-                                text = "0 전혀 편안하지 않음",
-                                style = MaterialTheme.typography.labelMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                            Text(
-                                text = "10 매우 편안함",
-                                style = MaterialTheme.typography.labelMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
+                            ScaleLabel(number = "0", meaning = "전혀 편안하지 않음", alignment = Alignment.Start)
+                            ScaleLabel(number = "5", meaning = "보통", alignment = Alignment.CenterHorizontally)
+                            ScaleLabel(number = "10", meaning = "매우 편안함", alignment = Alignment.End)
                         }
                     }
                 }
 
-                Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.height(40.dp))
 
-                // Submit Button (Enabled if score is selected)
-                Button(
+                PrimaryActionButton(
+                    text = actionButtonText,
                     onClick = { onSubmit(selectedScore) },
                     enabled = selectedScore != null,
-                    shape = RoundedCornerShape(14.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = GoreunsumPrimary),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp)
-                        .testTag("comfort_submit_button")
-                ) {
-                    Text(
-                        text = actionButtonText,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
+                    testTag = "comfort_submit_button"
+                )
 
-                Spacer(modifier = Modifier.height(12.dp))
-
-                // Skip Button (Always enabled)
                 TextButton(
                     onClick = onSkip,
-                    shape = RoundedCornerShape(14.dp),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(48.dp)
+                        .height(52.dp)
                         .testTag("comfort_skip_button")
                 ) {
                     Text(
-                        text = "건너뛰기",
-                        style = MaterialTheme.typography.titleMedium,
+                        text = "기록하지 않고 건너뛰기",
+                        style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(20.dp))
             }
         }
     }
+}
+
+@Composable
+private fun ScaleLabel(number: String, meaning: String, alignment: Alignment.Horizontal) {
+    Column(horizontalAlignment = alignment, modifier = Modifier.widthIn(max = 104.dp)) {
+        Text(number, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurface)
+        Text(
+            meaning,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = when (alignment) {
+                Alignment.Start -> TextAlign.Start
+                Alignment.End -> TextAlign.End
+                else -> TextAlign.Center
+            }
+        )
+    }
+}
+
+private fun comfortLabel(score: Int): String = when (score) {
+    0, 1, 2 -> "지금은 편안함이 적게 느껴져요"
+    3, 4 -> "조금 덜 편안하게 느껴져요"
+    5 -> "보통으로 느껴져요"
+    6, 7 -> "조금 편안하게 느껴져요"
+    else -> "편안하게 느껴져요"
 }

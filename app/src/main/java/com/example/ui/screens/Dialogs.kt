@@ -8,9 +8,11 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import com.example.ui.theme.GoreunsumDanger
 import com.example.ui.theme.GoreunsumPrimary
 
@@ -22,11 +24,13 @@ fun StopConfirmDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
+        shape = RoundedCornerShape(26.dp),
+        containerColor = MaterialTheme.colorScheme.surface,
         title = {
             Text(
                 text = "세션을 끝낼까요?",
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.SemiBold
             )
         },
         text = {
@@ -66,11 +70,13 @@ fun BackgroundResumeDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
+        shape = RoundedCornerShape(26.dp),
+        containerColor = MaterialTheme.colorScheme.surface,
         title = {
             Text(
                 text = "세션을 다시 시작할까요?",
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.SemiBold
             )
         },
         text = {
@@ -109,11 +115,13 @@ fun DeleteConfirmDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
+        shape = RoundedCornerShape(26.dp),
+        containerColor = MaterialTheme.colorScheme.surface,
         title = {
             Text(
                 text = "기록 삭제",
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.SemiBold
             )
         },
         text = {

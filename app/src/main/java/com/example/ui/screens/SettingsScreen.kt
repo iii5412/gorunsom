@@ -7,6 +7,8 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,10 +23,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MailOutline
@@ -32,7 +36,6 @@ import androidx.compose.material.icons.filled.Policy
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Source
 import androidx.compose.material.icons.filled.Vibration
-import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -49,6 +52,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -57,6 +61,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.domain.model.AppSettings
 import com.example.ui.theme.GoreunsumDanger
+import com.example.ui.theme.GoreunsumOutlineSoft
 import com.example.ui.theme.GoreunsumPrimary
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -85,7 +90,7 @@ fun SettingsScreen(
                     Text(
                         text = "설정",
                         style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.SemiBold
                     )
                 },
                 navigationIcon = {
@@ -117,7 +122,7 @@ fun SettingsScreen(
                     .fillMaxSize()
                     .widthIn(max = 600.dp)
                     .verticalScroll(scrollState)
-                    .padding(horizontal = 24.dp, vertical = 12.dp)
+                    .padding(horizontal = 24.dp, vertical = 16.dp)
             ) {
                 // Section: 호흡 가이드
                 Text(
@@ -130,15 +135,16 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Card(
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(22.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                    border = BorderStroke(1.dp, GoreunsumOutlineSoft),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(modifier = Modifier.padding(vertical = 4.dp)) {
                         // Voice Guide Toggle (Default OFF)
                         SettingsToggleRow(
-                            icon = Icons.Default.VolumeUp,
+                            icon = Icons.AutoMirrored.Filled.VolumeUp,
                             title = "음성 안내",
                             subtitle = "주요 사이클 시작 시 한국어 음성 안내",
                             checked = appSettings.voiceGuideEnabled,
@@ -171,9 +177,10 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Card(
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(22.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                    border = BorderStroke(1.dp, GoreunsumOutlineSoft),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     SettingsActionRow(
@@ -199,9 +206,10 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Card(
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(22.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                    border = BorderStroke(1.dp, GoreunsumOutlineSoft),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(modifier = Modifier.padding(vertical = 4.dp)) {
@@ -269,12 +277,20 @@ fun SettingsToggleRow(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.weight(1f)
         ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.size(24.dp)
-            )
+            Box(
+                modifier = Modifier
+                    .size(38.dp)
+                    .clip(CircleShape)
+                    .background(GoreunsumPrimary.copy(alpha = 0.09f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = GoreunsumPrimary,
+                    modifier = Modifier.size(21.dp)
+                )
+            }
             Spacer(modifier = Modifier.width(16.dp))
             Column {
                 Text(
@@ -326,12 +342,20 @@ fun SettingsActionRow(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.weight(1f)
         ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = titleColor,
-                modifier = Modifier.size(24.dp)
-            )
+            Box(
+                modifier = Modifier
+                    .size(38.dp)
+                    .clip(CircleShape)
+                    .background(titleColor.copy(alpha = 0.09f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = titleColor,
+                    modifier = Modifier.size(21.dp)
+                )
+            }
             Spacer(modifier = Modifier.width(16.dp))
             Column {
                 Text(
