@@ -33,7 +33,6 @@ import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Policy
-import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Source
 import androidx.compose.material.icons.filled.Vibration
 import androidx.compose.material3.Card
@@ -72,7 +71,6 @@ fun SettingsScreen(
     onVoiceGuideToggled: (Boolean) -> Unit,
     onHapticsToggled: (Boolean) -> Unit,
     onDeleteAllRecords: () -> Unit,
-    onOpenSafetyNotice: () -> Unit,
     onOpenPrivacyPolicy: () -> Unit,
     onOpenLicenses: () -> Unit,
     onOpenAppInfo: () -> Unit,
@@ -195,9 +193,9 @@ fun SettingsScreen(
 
                 Spacer(modifier = Modifier.height(28.dp))
 
-                // Section: 안전과 정보
+                // Section: 정보
                 Text(
-                    text = "안전과 정보",
+                    text = "정보",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold
@@ -213,12 +211,6 @@ fun SettingsScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(modifier = Modifier.padding(vertical = 4.dp)) {
-                        SettingsActionRow(
-                            icon = Icons.Default.Security,
-                            title = "안전 안내",
-                            onClick = onOpenSafetyNotice,
-                            testTag = "safety_notice_row"
-                        )
                         SettingsActionRow(
                             icon = Icons.Default.Policy,
                             title = "개인정보처리방침",

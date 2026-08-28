@@ -7,7 +7,6 @@ import com.example.domain.model.AppSettings
 import com.example.ui.screens.BreathingSessionScreen
 import com.example.ui.screens.ComfortInputScreen
 import com.example.ui.screens.HomeScreen
-import com.example.ui.screens.SafetyHelpScreen
 import com.example.ui.screens.SafetyOnboardingScreen
 import com.example.ui.screens.SessionCompletedScreen
 import com.example.ui.screens.SettingsScreen
@@ -35,7 +34,6 @@ class GreetingScreenshotTest {
             MyApplicationTheme {
                 HomeScreen(
                     onStartBreathing = {},
-                    onOpenHelp = {},
                     onOpenSettings = {}
                 )
             }
@@ -81,8 +79,7 @@ class GreetingScreenshotTest {
             MyApplicationTheme {
                 BreathingSessionScreen(
                     snapshot = snapshot,
-                    onStop = {},
-                    onOpenHelp = {}
+                    onStop = {}
                 )
             }
         }
@@ -97,8 +94,7 @@ class GreetingScreenshotTest {
             MyApplicationTheme {
                 BreathingSessionScreen(
                     snapshot = snapshot,
-                    onStop = {},
-                    onOpenHelp = {}
+                    onStop = {}
                 )
             }
         }
@@ -118,17 +114,6 @@ class GreetingScreenshotTest {
     }
 
     @Test
-    fun safety_help_screen_screenshot() {
-        composeTestRule.setContent {
-            MyApplicationTheme {
-                SafetyHelpScreen(onBack = {})
-            }
-        }
-
-        composeTestRule.onRoot().captureRoboImage(filePath = "src/test/screenshots/safety_help_screen.png")
-    }
-
-    @Test
     fun settings_screen_screenshot() {
         composeTestRule.setContent {
             MyApplicationTheme {
@@ -138,7 +123,6 @@ class GreetingScreenshotTest {
                     onVoiceGuideToggled = {},
                     onHapticsToggled = {},
                     onDeleteAllRecords = {},
-                    onOpenSafetyNotice = {},
                     onOpenPrivacyPolicy = {},
                     onOpenLicenses = {},
                     onOpenAppInfo = {},

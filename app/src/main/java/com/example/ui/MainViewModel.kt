@@ -37,7 +37,6 @@ enum class ScreenDestination {
     BREATHING_SESSION,
     COMFORT_AFTER,
     SESSION_COMPLETED,
-    SAFETY_HELP,
     SETTINGS,
     APP_INFO,
     PRIVACY_POLICY,
@@ -179,7 +178,6 @@ class MainViewModel(
                 navigateTo(ScreenDestination.HOME)
                 return true
             }
-            ScreenDestination.SAFETY_HELP,
             ScreenDestination.SETTINGS -> {
                 val dest = if (_uiState.value.isSessionActive) ScreenDestination.BREATHING_SESSION else ScreenDestination.HOME
                 navigateTo(dest)

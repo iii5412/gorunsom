@@ -22,11 +22,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ButtonDefaults
@@ -36,9 +32,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -65,7 +58,6 @@ import com.example.ui.theme.GoreunsumInhaleContainer
 fun BreathingSessionScreen(
     snapshot: EngineSnapshot?,
     onStop: () -> Unit,
-    onOpenHelp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     BackHandler { onStop() }
@@ -76,7 +68,6 @@ fun BreathingSessionScreen(
         onDispose { currentView.keepScreenOn = false }
     }
 
-    var showMenu by remember { mutableStateOf(false) }
     val phase = snapshot?.phase ?: BreathingPhase.INHALE
     val remainingFormatted = snapshot?.remainingTimeFormatted ?: "02:00"
     val sessionProgress = ((snapshot?.elapsedActiveMs ?: 0L).toFloat() /
@@ -137,24 +128,6 @@ fun BreathingSessionScreen(
                         )
                     }
 
-                    Box {
-                        IconButton(
-                            onClick = { showMenu = true },
-                            modifier = Modifier.testTag("session_more_menu_button")
-                        ) {
-                            Icon(Icons.Default.MoreVert, contentDescription = "더보기 메뉴")
-                        }
-                        DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
-                            DropdownMenuItem(
-                                text = { Text("도움이 필요해요") },
-                                onClick = {
-                                    showMenu = false
-                                    onOpenHelp()
-                                },
-                                modifier = Modifier.testTag("session_menu_help_item")
-                            )
-                        }
-                    }
                 }
 
                 LinearProgressIndicator(

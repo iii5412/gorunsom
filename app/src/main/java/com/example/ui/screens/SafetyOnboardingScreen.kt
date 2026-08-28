@@ -16,7 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.HealthAndSafety
-import androidx.compose.material.icons.filled.LocalHospital
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -31,7 +30,6 @@ import com.example.ui.components.GoreunsumWordmark
 import com.example.ui.components.IconLabel
 import com.example.ui.components.PrimaryActionButton
 import com.example.ui.components.TonalPanel
-import com.example.ui.theme.GoreunsumDangerContainer
 import com.example.ui.theme.GoreunsumPrimaryContainer
 
 @Composable
@@ -95,7 +93,7 @@ fun SafetyOnboardingScreen(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        text = "고른숨의 웰니스 목적과, 앱보다 즉시 도움을 먼저 요청해야 하는 순간을 알려드릴게요.",
+                        text = "고른숨의 웰니스 목적과 사용 범위를 알려드릴게요.",
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -110,24 +108,6 @@ fun SafetyOnboardingScreen(
                                 text = "고른숨은 만 18세 이상 성인의 명상 전 준비와 일상적 긴장 완화를 위한 웰니스 앱이며 의료기기가 아닙니다. 질환이나 건강 상태를 진단·치료·치유·예방하지 않으며 의료인의 진료나 의학적 조언을 대신하지 않습니다.",
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(14.dp))
-
-                    TonalPanel(containerColor = GoreunsumDangerContainer.copy(alpha = 0.72f)) {
-                        Column {
-                            IconLabel(
-                                icon = Icons.Default.LocalHospital,
-                                text = "위급할 때는 즉시 도움 요청",
-                                tint = MaterialTheme.colorScheme.error
-                            )
-                            Spacer(modifier = Modifier.height(14.dp))
-                            Text(
-                                text = "심하거나 갑작스러운 호흡곤란, 흉통, 의식 저하 등 위급한 증상이 있거나 위급하다고 느껴진다면 앱 사용보다 119 또는 의료기관의 도움을 우선하세요.",
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = MaterialTheme.colorScheme.onErrorContainer
                             )
                         }
                     }

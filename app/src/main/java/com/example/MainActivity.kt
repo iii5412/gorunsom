@@ -40,7 +40,6 @@ import com.example.ui.screens.DeleteConfirmDialog
 import com.example.ui.screens.HomeScreen
 import com.example.ui.screens.OpenSourceLicensesScreen
 import com.example.ui.screens.PrivacyPolicyScreen
-import com.example.ui.screens.SafetyHelpScreen
 import com.example.ui.screens.SafetyOnboardingScreen
 import com.example.ui.screens.SessionCompletedScreen
 import com.example.ui.screens.SettingsScreen
@@ -175,7 +174,6 @@ fun AppNavigation(
             ScreenDestination.HOME -> {
                 HomeScreen(
                     onStartBreathing = { viewModel.onStartBreathingFlow() },
-                    onOpenHelp = { viewModel.navigateTo(ScreenDestination.SAFETY_HELP) },
                     onOpenSettings = { viewModel.navigateTo(ScreenDestination.SETTINGS) }
                 )
             }
@@ -193,8 +191,7 @@ fun AppNavigation(
             ScreenDestination.BREATHING_SESSION -> {
                 BreathingSessionScreen(
                     snapshot = uiState.engineSnapshot,
-                    onStop = { viewModel.onStopRequested() },
-                    onOpenHelp = { viewModel.navigateTo(ScreenDestination.SAFETY_HELP) }
+                    onStop = { viewModel.onStopRequested() }
                 )
             }
             ScreenDestination.COMFORT_AFTER -> {
@@ -213,11 +210,6 @@ fun AppNavigation(
                     onHome = { viewModel.navigateTo(ScreenDestination.HOME) }
                 )
             }
-            ScreenDestination.SAFETY_HELP -> {
-                SafetyHelpScreen(
-                    onBack = { viewModel.navigateBack() }
-                )
-            }
             ScreenDestination.SETTINGS -> {
                 SettingsScreen(
                     appSettings = uiState.appSettings,
@@ -225,7 +217,6 @@ fun AppNavigation(
                     onVoiceGuideToggled = { enabled -> viewModel.onVoiceGuideToggled(enabled) },
                     onHapticsToggled = { enabled -> viewModel.onHapticsToggled(enabled) },
                     onDeleteAllRecords = { viewModel.onRequestDeleteAllRecords() },
-                    onOpenSafetyNotice = { viewModel.navigateTo(ScreenDestination.SAFETY_HELP) },
                     onOpenPrivacyPolicy = { viewModel.navigateTo(ScreenDestination.PRIVACY_POLICY) },
                     onOpenLicenses = { viewModel.navigateTo(ScreenDestination.OPEN_SOURCE_LICENSES) },
                     onOpenAppInfo = { viewModel.navigateTo(ScreenDestination.APP_INFO) },
@@ -234,9 +225,6 @@ fun AppNavigation(
             }
             ScreenDestination.APP_INFO -> {
                 AppInfoScreen(
-                    onOpenSafetyNotice = { viewModel.navigateTo(ScreenDestination.SAFETY_HELP) },
-                    onOpenPrivacyPolicy = { viewModel.navigateTo(ScreenDestination.PRIVACY_POLICY) },
-                    onOpenLicenses = { viewModel.navigateTo(ScreenDestination.OPEN_SOURCE_LICENSES) },
                     onBack = { viewModel.navigateTo(ScreenDestination.SETTINGS) }
                 )
             }

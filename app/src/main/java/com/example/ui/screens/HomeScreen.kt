@@ -18,7 +18,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.HelpOutline
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ArrowDownward
@@ -28,7 +27,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,7 +48,6 @@ import com.example.ui.theme.GoreunsumPrimaryContainer
 @Composable
 fun HomeScreen(
     onStartBreathing: () -> Unit,
-    onOpenHelp: () -> Unit,
     onOpenSettings: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -117,7 +114,7 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(30.dp))
 
                     Text(
-                        text = "명상 전, 숨을 고르게",
+                        text = "숨을 고르게",
                         style = MaterialTheme.typography.headlineLarge,
                         fontWeight = FontWeight.SemiBold,
                         textAlign = TextAlign.Center,
@@ -166,24 +163,7 @@ fun HomeScreen(
                         testTag = "start_breathing_button"
                     )
 
-                    Spacer(modifier = Modifier.height(14.dp))
-
-                    TextButton(
-                        onClick = onOpenHelp,
-                        modifier = Modifier
-                            .height(48.dp)
-                            .testTag("help_button")
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.HelpOutline,
-                            contentDescription = null,
-                            modifier = Modifier.size(19.dp)
-                        )
-                        Spacer(modifier = Modifier.size(7.dp))
-                        Text(text = "지금 도움이 더 필요하신가요?", style = MaterialTheme.typography.labelLarge)
-                    }
-
-                    Spacer(modifier = Modifier.height(18.dp))
+                    Spacer(modifier = Modifier.height(32.dp))
                 }
             }
         }
